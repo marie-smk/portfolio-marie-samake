@@ -6,7 +6,7 @@ PORTFOLIO MARIE SAMAKE - CONTENU TEXTUEL COMPLET
 --- SECTION HERO ---
 Badge: "Je suis Étudiante en Science des Données"
 Titre principal: "Donnons la parole aux données"
-Sous-titre: "Transformer les données en histoires visuelles captivantes"
+Sous-titre: ""
 Bouton podcast: "Écouter mon Podcast"
 Bouton CTA: "Voir mes projets"
 
@@ -15,7 +15,7 @@ Titre: "À propos de moi"
 
 Slide 1:
 Titre: "Qui suis-je ?"
-Contenu: "Je m'appelle Marie Samake, étudiante en 2ème année de Bachelor Universitaire de Technologie en sciences des données à l'Université Sorbonne Paris Nord."
+Contenu: "Je m'appelle Marie Samake, étudiante en 3ème année de Bachelor Universitaire de Technologie en sciences des données à l'Université Sorbonne Paris Nord et actuellement Apprentie en Gestion de Données à la Banque de France."
 
 Slide 2:
 Titre: "Mon Approche"
