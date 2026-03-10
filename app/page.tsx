@@ -288,8 +288,8 @@ export default function PortfolioMarieSamake() {
     return () => clearInterval(typeInterval)
   }, [currentWordIndex, activePage])
 
+  // Effet pour le suivi souris et scroll spy
   useEffect(() => {
-    // Suivi de la souris pour les effets de parallaxe
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
@@ -297,15 +297,8 @@ export default function PortfolioMarieSamake() {
       })
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
-
-    // Auto-play du carrousel
-    const carouselTimer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % aboutSlides.length)
-    }, 5000)
-
-    // Scroll spy pour la navigation
     const handleScroll = () => {
+      if (activePage !== "home") return
       const sections = ["home", "about", "passions", "forces", "data-science-preview", "competences", "contact"]
       const scrollPosition = window.scrollY + 100
 
@@ -323,9 +316,28 @@ export default function PortfolioMarieSamake() {
       }
     }
 
+    window.addEventListener("mousemove", handleMouseMove)
     window.addEventListener("scroll", handleScroll)
 
-    // Animations d'apparition au scroll
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [activePage])
+
+  // Effet pour le carrousel (seulement sur la page home)
+  useEffect(() => {
+    if (activePage !== "home") return
+    
+    const carouselTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % aboutSlides.length)
+    }, 5000)
+
+    return () => clearInterval(carouselTimer)
+  }, [aboutSlides.length, activePage])
+
+  // Effet pour les animations au scroll - re-observer quand la page change
+  useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
@@ -339,20 +351,20 @@ export default function PortfolioMarieSamake() {
       })
     }, observerOptions)
 
-    // Observer tous les éléments avec la classe animate-on-scroll
-    setTimeout(() => {
+    // Re-observer les elements a chaque changement de page
+    const timeoutId = setTimeout(() => {
       document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+        // Retirer la classe pour permettre la re-animation
+        el.classList.remove("animate-fade-in-up")
         observer.observe(el)
       })
     }, 100)
 
     return () => {
-      clearInterval(carouselTimer)
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("scroll", handleScroll)
+      clearTimeout(timeoutId)
       observer.disconnect()
     }
-  }, [aboutSlides.length])
+  }, [activePage])
 
   const scrollToSection = (sectionId: string) => {
     if (activePage !== "home") {
