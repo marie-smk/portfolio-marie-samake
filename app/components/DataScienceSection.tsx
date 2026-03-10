@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -77,31 +77,6 @@ export default function DataScienceSection({ onNavigateHome }: DataScienceSectio
   ]
 
   const currentBDPage = bdPages[currentPage]
-
-  useEffect(() => {
-    // Animations d'apparition au scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up")
-        }
-      })
-    }, observerOptions)
-
-    // Observer tous les éléments avec la classe animate-on-scroll
-    setTimeout(() => {
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        observer.observe(el)
-      })
-    }, 100)
-
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <div className="min-h-screen px-8 pb-20">

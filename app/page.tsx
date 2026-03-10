@@ -336,35 +336,7 @@ export default function PortfolioMarieSamake() {
     return () => clearInterval(carouselTimer)
   }, [aboutSlides.length, activePage])
 
-  // Effet pour les animations au scroll - re-observer quand la page change
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up")
-        }
-      })
-    }, observerOptions)
-
-    // Re-observer les elements a chaque changement de page
-    const timeoutId = setTimeout(() => {
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        // Retirer la classe pour permettre la re-animation
-        el.classList.remove("animate-fade-in-up")
-        observer.observe(el)
-      })
-    }, 100)
-
-    return () => {
-      clearTimeout(timeoutId)
-      observer.disconnect()
-    }
-  }, [activePage])
 
   const scrollToSection = (sectionId: string) => {
     if (activePage !== "home") {

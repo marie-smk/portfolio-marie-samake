@@ -129,7 +129,6 @@ export default function StageSection({ onNavigateHome }: StageSectionProps) {
   }
 
   useEffect(() => {
-    // Suivi de la souris pour les effets de parallaxe
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
@@ -138,32 +137,7 @@ export default function StageSection({ onNavigateHome }: StageSectionProps) {
     }
 
     window.addEventListener("mousemove", handleMouseMove)
-
-    // Animations d'apparition au scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up")
-        }
-      })
-    }, observerOptions)
-
-    // Observer tous les éléments avec la classe animate-on-scroll
-    setTimeout(() => {
-      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-        observer.observe(el)
-      })
-    }, 100)
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      observer.disconnect()
-    }
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
