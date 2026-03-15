@@ -53,7 +53,6 @@ import StageSection from "./components/StageSection"
 
 export default function PortfolioMarieSamake() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [activeSection, setActiveSection] = useState("home")
   const [activePage, setActivePage] = useState("home") // Nouvelle state pour les pages
@@ -290,9 +289,6 @@ export default function PortfolioMarieSamake() {
   }, [currentWordIndex, activePage])
 
   useEffect(() => {
-    // Simulation de chargement
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-
     // Suivi de la souris pour les effets de parallaxe
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -355,7 +351,6 @@ export default function PortfolioMarieSamake() {
     }, 100)
 
     return () => {
-      clearTimeout(timer)
       clearInterval(carouselTimer)
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("scroll", handleScroll)
@@ -411,46 +406,6 @@ export default function PortfolioMarieSamake() {
       videoRef.current.muted = !isVideoMuted
       setIsVideoMuted(!isVideoMuted)
     }
-  }
-
-  // Animation de chargement ultra-moderne
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center z-50">
-        <div className="text-center">
-          <div className="relative mb-8">
-            {/* Cercles animés */}
-            <div className="w-32 h-32 relative">
-              <div className="absolute inset-0 border-4 border-pink-500/30 rounded-full animate-spin"></div>
-              <div
-                className="absolute inset-2 border-4 border-purple-500/50 rounded-full animate-spin"
-                style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
-              ></div>
-              <div
-                className="absolute inset-4 border-4 border-cyan-500/70 rounded-full animate-spin"
-                style={{ animationDuration: "0.8s" }}
-              ></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Brain className="w-12 h-12 text-white animate-pulse" />
-              </div>
-            </div>
-          </div>
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-            Portfolio Marie Samake
-          </h2>
-          <p className="text-purple-300 mb-6 text-lg">Chargement de l'univers data...</p>
-          <div className="flex justify-center space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-3 h-3 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-bounce"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
