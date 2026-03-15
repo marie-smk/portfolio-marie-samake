@@ -197,7 +197,7 @@ export default function PortfolioMarieSamake() {
     { id: "data-science", label: "Data Science", icon: Brain, isPage: true },
     { id: "competences", label: "Compétences", icon: TrendingUp, isPage: false },
     { id: "projets", label: "Projets", icon: GraduationCap, isPage: true },
-    { id: "stage", label: "Stage", icon: Building2, isPage: true },
+    { id: "stage", label: "Experience", icon: Building2, isPage: true },
     { id: "contact", label: "Contact", icon: Mail, isPage: false },
   ]
 
